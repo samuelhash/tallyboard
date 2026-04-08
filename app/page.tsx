@@ -6,8 +6,8 @@ import TrackScrollDepth from '@/components/TrackScrollDepth';
 import FAQSection from '@/components/FAQSection';
 import { createServerSupabase } from '@/lib/supabase-server';
 
-// Revalidate the waitlist count every 60 seconds (ISR)
-export const revalidate = 60;
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
 
 // ─── Waitlist count (server-side) ─────────────────────────────────────────────
 
