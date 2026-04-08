@@ -13,9 +13,9 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tallyboard.io';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'TallyBoard — Creator Revenue Dashboard',
+  title: 'TallyBoard — Creator Revenue Dashboard | Join the Waitlist',
   description:
-    'Track all your creator income in one place. YouTube, TikTok, Twitch, merch, sponsorships — unified dashboard with tax-ready reports.',
+    'Unify your YouTube, TikTok, Twitch, merch, and sponsorship revenue in one dashboard. Tax-ready reports, invoice tracking, and expense management built for content creators.',
   keywords: [
     'content creator finance',
     'creator revenue dashboard',
@@ -33,23 +33,23 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: 'TallyBoard',
-    title: 'TallyBoard — Creator Revenue Dashboard',
+    title: 'TallyBoard — Every dollar you earn. One dashboard.',
     description:
-      'Track all your creator income in one place. YouTube, TikTok, Twitch, merch, sponsorships — unified dashboard with tax-ready reports.',
+      'The creator finance dashboard that unifies YouTube, TikTok, Twitch, merch, and sponsorship revenue. Built by a creator, for creators.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'TallyBoard — Creator Revenue Dashboard',
+        alt: 'TallyBoard — Every dollar you earn. One dashboard.',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'TallyBoard — Creator Revenue Dashboard',
+    title: 'TallyBoard — Every dollar you earn. One dashboard.',
     description:
-      'Track all your creator income in one place. YouTube, TikTok, Twitch, merch, sponsorships — unified dashboard with tax-ready reports.',
+      'The creator finance dashboard that unifies YouTube, TikTok, Twitch, merch, and sponsorship revenue. Built by a creator, for creators.',
     images: ['/og-image.png'],
     creator: '@tallyboard',
   },

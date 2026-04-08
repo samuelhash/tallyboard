@@ -8,6 +8,7 @@ type Status = 'idle' | 'loading' | 'success' | 'error';
 interface WaitlistFormProps {
   size?: 'default' | 'large';
   placeholder?: string;
+  ctaLabel?: string;
 }
 
 // ─── Validation ───────────────────────────────────────────────────────────────
@@ -26,6 +27,7 @@ function validateEmail(val: string): string {
 export default function WaitlistForm({
   size = 'default',
   placeholder = 'Enter your email',
+  ctaLabel = 'Claim your lifetime spot',
 }: WaitlistFormProps) {
   const [email, setEmail] = useState('');
   const [showErrors, setShowErrors] = useState(false);
@@ -176,7 +178,7 @@ export default function WaitlistForm({
                 You&rsquo;re in!
               </span>
             ) : (
-              'Join the Waitlist'
+              ctaLabel
             )}
           </button>
         </div>

@@ -3,6 +3,25 @@ import DashboardMockup from '@/components/DashboardMockup';
 import AnimateIn from '@/components/AnimateIn';
 import PricingCTA from '@/components/PricingCTA';
 import TrackScrollDepth from '@/components/TrackScrollDepth';
+import FAQSection from '@/components/FAQSection';
+import { createServerSupabase } from '@/lib/supabase-server';
+
+// Revalidate the waitlist count every 60 seconds (ISR)
+export const revalidate = 60;
+
+// ─── Waitlist count (server-side) ─────────────────────────────────────────────
+
+async function getWaitlistCount(): Promise<number> {
+  try {
+    const client = createServerSupabase();
+    const { count } = await client
+      .from('waitlist')
+      .select('*', { count: 'exact', head: true });
+    return count ?? 0;
+  } catch {
+    return 0;
+  }
+}
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
@@ -31,10 +50,22 @@ function IconTax() {
   );
 }
 
-function IconPuzzle() {
+function IconBarChart() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 2a2 2 0 012 2v1h3a1 1 0 011 1v3h1a2 2 0 010 4h-1v3a1 1 0 01-1 1h-3v1a2 2 0 01-4 0v-1H7a1 1 0 01-1-1v-3H5a2 2 0 010-4h1V6a1 1 0 011-1h3V4a2 2 0 012-2z"/>
+      <line x1="18" y1="20" x2="18" y2="10"/>
+      <line x1="12" y1="20" x2="12" y2="4"/>
+      <line x1="6" y1="20" x2="6" y2="14"/>
+      <line x1="2" y1="20" x2="22" y2="20"/>
+    </svg>
+  );
+}
+
+function IconMail() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+      <polyline points="22,6 12,13 2,6"/>
     </svg>
   );
 }
@@ -78,6 +109,15 @@ function IconInvoice() {
       <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
       <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
       <line x1="12" y1="22.08" x2="12" y2="12"/>
+    </svg>
+  );
+}
+
+function IconExpense() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="12" y1="1" x2="12" y2="23"/>
+      <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
     </svg>
   );
 }
@@ -134,18 +174,23 @@ function LogoMark() {
 const painCards = [
   {
     icon: <IconScatter />,
-    title: 'Revenue scattered across 8 platforms',
-    desc: "You're context-switching between dashboards just to answer the most basic question: how much did I make this month?",
+    title: 'Your income lives on 8 different dashboards',
+    desc: "You're context-switching between platforms just to answer the most basic question: how much did I make this month?",
   },
   {
     icon: <IconTax />,
-    title: 'Tax season is a nightmare',
-    desc: 'Chasing down income numbers from eight different platforms while your accountant waits is a special kind of chaos.',
+    title: 'Tax season means 6 hours of CSV downloads',
+    desc: 'Chasing down income numbers from eight platforms while your accountant waits is a special kind of chaos.',
   },
   {
-    icon: <IconPuzzle />,
-    title: 'No idea which content actually makes money',
+    icon: <IconBarChart />,
+    title: 'You have no idea which platform actually pays',
     desc: "Views and likes are vanity metrics. Without consolidated revenue data, you can't make smart decisions about what to create.",
+  },
+  {
+    icon: <IconMail />,
+    title: 'Sponsorship invoices? Lost in your inbox.',
+    desc: "Deals get missed, payments get delayed, and you have no single source of truth for what you're owed.",
   },
 ];
 
@@ -153,22 +198,38 @@ const features = [
   {
     icon: <IconDashboard />,
     title: 'Unified Dashboard',
-    desc: 'All your revenue streams in one clean view. No switching tabs, no mental math.',
+    desc: 'All revenue streams in one clean view.',
+    comingSoon: false,
   },
   {
     icon: <IconUpload />,
-    title: 'CSV Import + Auto-Sync',
-    desc: 'Drop in a CSV or connect a platform directly. TallyBoard handles the parsing.',
+    title: 'CSV Import',
+    desc: 'Drop in exports from YouTube, PayPal, Stripe.',
+    comingSoon: false,
   },
   {
-    icon: <IconReport />,
-    title: 'Tax-Ready Reports',
-    desc: 'Generate clean, categorized income summaries your accountant will actually appreciate.',
+    icon: <IconExpense />,
+    title: 'Expense Tracking',
+    desc: 'Log equipment, software, travel by category.',
+    comingSoon: false,
   },
   {
     icon: <IconInvoice />,
     title: 'Invoice Tracker',
-    desc: 'Log sponsorships and track payment status so nothing slips through the cracks.',
+    desc: 'Never lose a sponsorship payment again.',
+    comingSoon: false,
+  },
+  {
+    icon: <IconReport />,
+    title: 'Tax-Ready Reports',
+    desc: 'Clean summaries your accountant will love.',
+    comingSoon: true,
+  },
+  {
+    icon: <IconBarChart />,
+    title: 'Platform Breakdown',
+    desc: 'See exactly which platforms pay the most.',
+    comingSoon: false,
   },
 ];
 
@@ -183,13 +244,13 @@ const steps = [
     icon: <IconEye />,
     number: '02',
     title: 'See everything in one place',
-    desc: "Your total revenue, platform breakdown, and income trends — all on a single dashboard that actually makes sense.",
+    desc: 'All your revenue, platform breakdown, and income trends on a single dashboard.',
   },
   {
     icon: <IconExport />,
     number: '03',
-    title: 'Export for tax season',
-    desc: 'Generate a clean, categorized income report in seconds. Your accountant gets the data. You keep your sanity.',
+    title: 'Export tax-ready reports',
+    desc: 'Generate a clean, categorized income report in seconds and hand it to your accountant.',
   },
 ];
 
@@ -204,8 +265,9 @@ const tiers = [
     features: [
       'Up to 3 platforms',
       '30-day revenue history',
-      'Manual entry',
+      'Manual income entry',
       'Basic CSV export',
+      'Basic dashboard view',
       'Community support',
     ],
   },
@@ -215,14 +277,14 @@ const tiers = [
     period: 'per month',
     desc: 'For serious creators who know their numbers.',
     popular: true,
-    cta: 'Join Waitlist',
+    cta: 'Claim your lifetime spot',
     features: [
       'Unlimited platforms',
       'Full revenue history',
-      'Auto-sync (coming soon)',
-      'Tax-ready PDF reports',
+      'CSV import from any platform',
+      'Expense tracking by category',
       'Invoice tracker',
-      'Priority support',
+      'Tax-ready PDF reports (coming soon)',
     ],
   },
   {
@@ -231,11 +293,11 @@ const tiers = [
     period: 'per month',
     desc: 'For creators running a real business.',
     popular: false,
-    cta: 'Join Waitlist',
+    cta: 'Claim your lifetime spot',
     features: [
       'Everything in Pro',
       'Team access (3 seats)',
-      'Custom categories',
+      'Custom expense categories',
       'API access',
       'Dedicated onboarding',
       'White-label reports',
@@ -243,7 +305,7 @@ const tiers = [
   },
 ];
 
-// ─── Nav ─────────────────────────────────────────────────────────────────────
+// ─── Nav ──────────────────────────────────────────────────────────────────────
 
 function Nav() {
   return (
@@ -252,19 +314,22 @@ function Nav() {
         <LogoMark />
         <span className="text-white font-semibold text-base tracking-tight">TallyBoard</span>
       </a>
-      <a
-        href="#waitlist"
-        className="btn-accent px-4 py-2 text-sm rounded-lg"
-      >
+      <a href="#waitlist" className="btn-accent px-4 py-2 text-sm rounded-lg">
         Join Waitlist
       </a>
     </header>
   );
 }
 
-// ─── Sections ─────────────────────────────────────────────────────────────────
+// ─── Hero ─────────────────────────────────────────────────────────────────────
 
-function Hero() {
+interface HeroProps {
+  waitlistCount: number;
+  spotsCount: number;
+  allClaimed: boolean;
+}
+
+function Hero({ waitlistCount, spotsCount, allClaimed }: HeroProps) {
   return (
     <section className="relative min-h-screen flex flex-col justify-center pt-16 overflow-hidden">
       {/* Background glow */}
@@ -293,34 +358,39 @@ function Hero() {
           {/* Subline */}
           <div className="animate-fade-up" style={{ animationDelay: '160ms' }}>
             <p className="text-[rgba(255,255,255,0.55)] text-lg md:text-xl leading-relaxed max-w-xl">
-              TallyBoard unifies your YouTube, TikTok, Twitch, merch, and
-              sponsorship revenue so you always know your numbers.
+              Stop downloading CSVs from 8 platforms at tax time.
             </p>
+          </div>
+
+          {/* Scarcity counter */}
+          <div className="animate-fade-up" style={{ animationDelay: '210ms' }}>
+            {allClaimed ? (
+              <div className="inline-flex items-center gap-2 text-sm font-medium text-[rgba(255,255,255,0.6)] bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] px-4 py-2.5 rounded-xl">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FBBF24] flex-shrink-0" />
+                All 500 lifetime spots claimed. Join the standard waitlist.
+              </div>
+            ) : (
+              <div className="inline-flex items-center gap-2 text-sm font-medium text-[rgba(255,255,255,0.7)] bg-[rgba(52,211,153,0.06)] border border-[rgba(52,211,153,0.18)] px-4 py-2.5 rounded-xl">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#34D399] flex-shrink-0" />
+                <span>
+                  <span className="text-white font-bold font-num">{spotsCount}</span>
+                  {' '}of 500 lifetime Pro spots claimed at{' '}
+                  <span className="text-[#34D399] font-semibold">$4.99/mo forever</span>
+                  .
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Form */}
           <div id="waitlist" className="animate-fade-up" style={{ animationDelay: '240ms' }}>
             <WaitlistForm size="large" placeholder="your@email.com" />
-            <p className="text-[rgba(255,255,255,0.3)] text-xs mt-3">
-              No credit card required. Free tier available at launch.
-            </p>
-          </div>
-
-          {/* Social proof */}
-          <div className="animate-fade-up flex items-center gap-3" style={{ animationDelay: '320ms' }}>
-            <div className="flex -space-x-2">
-              {['#FF4444', '#9146FF', '#34D399', '#FBBF24'].map((c, i) => (
-                <div
-                  key={i}
-                  className="w-7 h-7 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center text-[9px] font-bold"
-                  style={{ backgroundColor: `${c}25`, borderColor: '#0A0A0A', color: c }}
-                >
-                  {['JK', 'AM', 'SR', 'TL'][i]}
-                </div>
-              ))}
-            </div>
-            <p className="text-[rgba(255,255,255,0.4)] text-sm">
-              <span className="text-white font-semibold">1,200+</span> creators already waiting
+            <p className="text-[rgba(255,255,255,0.35)] text-xs mt-3">
+              Join{' '}
+              <span className="text-[rgba(255,255,255,0.7)] font-semibold font-num">
+                {waitlistCount > 0 ? waitlistCount.toLocaleString() : 'hundreds of'}
+              </span>{' '}
+              creators on the waitlist
             </p>
           </div>
         </div>
@@ -337,6 +407,8 @@ function Hero() {
   );
 }
 
+// ─── Pain Section ─────────────────────────────────────────────────────────────
+
 function PainSection() {
   return (
     <section className="py-24 md:py-32 px-6 md:px-10">
@@ -350,9 +422,9 @@ function PainSection() {
           </h2>
         </AnimateIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
           {painCards.map((card, i) => (
-            <AnimateIn key={card.title} delay={i * 100}>
+            <AnimateIn key={card.title} delay={i * 80}>
               <div className="glass-card rounded-2xl p-7 h-full flex flex-col gap-5 cursor-default group">
                 <div className="w-11 h-11 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.08)] flex items-center justify-center text-[rgba(255,255,255,0.5)] group-hover:text-[#34D399] group-hover:border-[rgba(52,211,153,0.3)] group-hover:bg-[rgba(52,211,153,0.08)] transition-all duration-200">
                   {card.icon}
@@ -374,42 +446,7 @@ function PainSection() {
   );
 }
 
-function FeaturesSection() {
-  return (
-    <section className="py-24 md:py-32 px-6 md:px-10 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[rgba(52,211,153,0.025)] to-transparent pointer-events-none" />
-      <div className="relative max-w-6xl mx-auto">
-        <AnimateIn className="text-center mb-14">
-          <p className="text-[#34D399] text-sm uppercase tracking-widest font-semibold mb-3">
-            Features
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Built for the way you work.
-          </h2>
-          <p className="text-[rgba(255,255,255,0.45)] text-lg mt-4 max-w-xl mx-auto">
-            Everything you need to understand your income. Nothing you don&apos;t.
-          </p>
-        </AnimateIn>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {features.map((f, i) => (
-            <AnimateIn key={f.title} delay={i * 80}>
-              <div className="glass-card rounded-2xl p-7 flex gap-5 items-start group cursor-default h-full">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-[rgba(52,211,153,0.08)] border border-[rgba(52,211,153,0.15)] flex items-center justify-center text-[#34D399] group-hover:bg-[rgba(52,211,153,0.14)] group-hover:border-[rgba(52,211,153,0.25)] transition-all duration-200">
-                  {f.icon}
-                </div>
-                <div>
-                  <h3 className="text-white font-semibold text-base mb-1.5">{f.title}</h3>
-                  <p className="text-[rgba(255,255,255,0.45)] text-sm leading-relaxed">{f.desc}</p>
-                </div>
-              </div>
-            </AnimateIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+// ─── How It Works ─────────────────────────────────────────────────────────────
 
 function HowItWorks() {
   return (
@@ -431,14 +468,12 @@ function HowItWorks() {
           {steps.map((step, i) => (
             <AnimateIn key={step.title} delay={i * 120}>
               <div className="relative flex flex-col items-center text-center gap-5">
-                {/* Step icon */}
                 <div className="relative z-10 w-20 h-20 rounded-2xl bg-[#111] border border-[rgba(52,211,153,0.25)] flex flex-col items-center justify-center gap-1 shadow-lg">
                   <span className="text-[#34D399] text-xs font-bold font-num tracking-widest opacity-60">
                     {step.number}
                   </span>
                   <span className="text-[#34D399]">{step.icon}</span>
                 </div>
-
                 <div>
                   <h3 className="text-white font-semibold text-base mb-2">{step.title}</h3>
                   <p className="text-[rgba(255,255,255,0.45)] text-sm leading-relaxed">{step.desc}</p>
@@ -452,12 +487,143 @@ function HowItWorks() {
   );
 }
 
+// ─── Features Section ─────────────────────────────────────────────────────────
+
+function FeaturesSection() {
+  return (
+    <section className="py-24 md:py-32 px-6 md:px-10 relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[rgba(52,211,153,0.025)] to-transparent pointer-events-none" />
+      <div className="relative max-w-6xl mx-auto">
+        <AnimateIn className="text-center mb-14">
+          <p className="text-[#34D399] text-sm uppercase tracking-widest font-semibold mb-3">
+            Features
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            Built for the way you work.
+          </h2>
+          <p className="text-[rgba(255,255,255,0.45)] text-lg mt-4 max-w-xl mx-auto">
+            Everything you need to understand your income. Nothing you don&apos;t.
+          </p>
+        </AnimateIn>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+          {features.map((f, i) => (
+            <AnimateIn key={f.title} delay={i * 70}>
+              <div className="glass-card rounded-2xl p-7 flex gap-5 items-start group cursor-default h-full">
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-[rgba(52,211,153,0.08)] border border-[rgba(52,211,153,0.15)] flex items-center justify-center text-[#34D399] group-hover:bg-[rgba(52,211,153,0.14)] group-hover:border-[rgba(52,211,153,0.25)] transition-all duration-200">
+                  {f.icon}
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                    <h3 className="text-white font-semibold text-base">{f.title}</h3>
+                    {f.comingSoon && (
+                      <span className="text-[10px] font-semibold text-[#34D399] bg-[rgba(52,211,153,0.1)] border border-[rgba(52,211,153,0.2)] px-2 py-0.5 rounded-full whitespace-nowrap">
+                        Coming soon
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-[rgba(255,255,255,0.45)] text-sm leading-relaxed">{f.desc}</p>
+                </div>
+              </div>
+            </AnimateIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Mid-page CTA ─────────────────────────────────────────────────────────────
+
+function MidPageCTA({ waitlistCount }: { waitlistCount: number }) {
+  return (
+    <section className="py-16 px-6 md:px-10">
+      <TrackScrollDepth section="mid_cta" />
+      <AnimateIn>
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-[rgba(255,255,255,0.4)] text-sm mb-6">
+            Join{' '}
+            <span className="text-white font-semibold font-num">
+              {waitlistCount > 0 ? waitlistCount.toLocaleString() : 'hundreds of'}
+            </span>{' '}
+            creators already on the waitlist
+          </p>
+          <div className="flex justify-center">
+            <WaitlistForm size="large" placeholder="your@email.com" />
+          </div>
+        </div>
+      </AnimateIn>
+    </section>
+  );
+}
+
+// ─── Built By Creator ─────────────────────────────────────────────────────────
+
+function BuiltByCreator() {
+  return (
+    <section className="py-24 md:py-32 px-6 md:px-10">
+      <div className="max-w-3xl mx-auto">
+        <AnimateIn className="text-center mb-14">
+          <p className="text-[rgba(255,255,255,0.3)] text-sm uppercase tracking-widest font-semibold mb-3">
+            Why we built this
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            Built by a creator, for creators.
+          </h2>
+        </AnimateIn>
+
+        <AnimateIn delay={100}>
+          <div
+            className="rounded-2xl p-8 md:p-10 relative overflow-hidden"
+            style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.08)',
+            }}
+          >
+            {/* Subtle accent line on left */}
+            <div className="absolute left-0 top-8 bottom-8 w-0.5 bg-gradient-to-b from-transparent via-[#34D399] to-transparent opacity-40" />
+
+            <div className="pl-6 md:pl-8">
+              <p className="text-[rgba(255,255,255,0.65)] text-base md:text-lg leading-relaxed mb-4">
+                I&apos;ve been creating content for years and every tax season felt like a second job — downloading CSVs from eight platforms, reconciling spreadsheets, and still not knowing which platform actually paid the most.
+              </p>
+              <p className="text-[rgba(255,255,255,0.65)] text-base md:text-lg leading-relaxed mb-4">
+                I looked for a tool that understood the creator income stack and couldn&apos;t find one, so I built TallyBoard. No accounting background required, no chart of accounts, no jargon — just a clean view of your money across every platform you work with.
+              </p>
+              <p className="text-[rgba(255,255,255,0.65)] text-base md:text-lg leading-relaxed mb-8">
+                This is the tool I wish existed when I started.
+              </p>
+
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{
+                    background: 'rgba(52,211,153,0.12)',
+                    border: '1px solid rgba(52,211,153,0.25)',
+                  }}
+                >
+                  <span className="text-[#34D399] text-xs font-bold">T</span>
+                </div>
+                <p className="text-[rgba(255,255,255,0.5)] text-sm font-medium">
+                  — Twin, Founder of TallyBoard
+                </p>
+              </div>
+            </div>
+          </div>
+        </AnimateIn>
+      </div>
+    </section>
+  );
+}
+
+// ─── Pricing Section ──────────────────────────────────────────────────────────
+
 function PricingSection() {
   return (
     <section className="py-24 md:py-32 px-6 md:px-10 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[rgba(52,211,153,0.02)] to-transparent pointer-events-none" />
       <div className="relative max-w-5xl mx-auto">
-        <AnimateIn className="text-center mb-14">
+        <AnimateIn className="text-center mb-10">
           <p className="text-[#34D399] text-sm uppercase tracking-widest font-semibold mb-3">
             Pricing
           </p>
@@ -469,14 +635,25 @@ function PricingSection() {
           </p>
         </AnimateIn>
 
+        {/* Waitlist banner */}
+        <AnimateIn delay={80}>
+          <div className="mb-10 flex justify-center">
+            <div className="inline-flex items-center gap-2.5 bg-[rgba(52,211,153,0.08)] border border-[rgba(52,211,153,0.2)] px-5 py-3 rounded-xl">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#34D399] animate-pulse flex-shrink-0" />
+              <p className="text-[#34D399] text-sm font-semibold">
+                Waitlist members lock in Pro at{' '}
+                <span className="text-white">$4.99/mo forever.</span>
+              </p>
+            </div>
+          </div>
+        </AnimateIn>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {tiers.map((tier, i) => (
             <AnimateIn key={tier.name} delay={i * 100}>
               <div
                 className={`relative rounded-2xl p-7 flex flex-col gap-6 h-full ${
-                  tier.popular
-                    ? 'bg-[#111] ring-accent'
-                    : 'glass-card'
+                  tier.popular ? 'bg-[#111] ring-accent' : 'glass-card'
                 }`}
               >
                 {tier.popular && (
@@ -524,14 +701,15 @@ function PricingSection() {
   );
 }
 
-function FinalCTA() {
+// ─── Final CTA ────────────────────────────────────────────────────────────────
+
+function FinalCTA({ waitlistCount }: { waitlistCount: number }) {
   return (
     <section className="relative py-24 md:py-32 px-6 md:px-10">
       <TrackScrollDepth section="final_cta" />
       <div className="max-w-3xl mx-auto">
         <AnimateIn>
           <div className="relative rounded-3xl border border-[rgba(52,211,153,0.2)] bg-[rgba(52,211,153,0.04)] p-10 md:p-16 text-center overflow-hidden">
-            {/* Background glow */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_100%,rgba(52,211,153,0.1),transparent)] pointer-events-none" />
 
             <div className="relative">
@@ -544,15 +722,19 @@ function FinalCTA() {
               </h2>
               <p className="text-[rgba(255,255,255,0.5)] text-lg mb-10 max-w-lg mx-auto leading-relaxed">
                 Join the waitlist and be first to know when TallyBoard launches.
-                Early members get lifetime Pro pricing locked in.
+                Waitlist members lock in Pro at $4.99/mo forever.
               </p>
 
               <div className="flex justify-center">
                 <WaitlistForm size="large" placeholder="your@email.com" />
               </div>
 
-              <p className="text-[rgba(255,255,255,0.25)] text-xs mt-4">
-                No spam. No credit card. Unsubscribe anytime.
+              <p className="text-[rgba(255,255,255,0.3)] text-xs mt-4">
+                Join{' '}
+                <span className="text-[rgba(255,255,255,0.55)] font-semibold font-num">
+                  {waitlistCount > 0 ? waitlistCount.toLocaleString() : 'hundreds of'}
+                </span>{' '}
+                creators on the waitlist. No spam. No credit card.
               </p>
             </div>
           </div>
@@ -562,38 +744,58 @@ function FinalCTA() {
   );
 }
 
+// ─── Footer ───────────────────────────────────────────────────────────────────
+
 function Footer() {
   return (
-    <footer className="border-t border-[rgba(255,255,255,0.06)] py-10 px-6 md:px-10">
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-        {/* Logo */}
-        <a href="#" className="flex items-center gap-2.5 no-underline">
-          <LogoMark />
-          <span className="text-white font-semibold text-sm tracking-tight">TallyBoard</span>
-        </a>
+    <footer className="border-t border-[rgba(255,255,255,0.06)] py-12 px-6 md:px-10">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-2.5 no-underline">
+            <LogoMark />
+            <span className="text-white font-semibold text-sm tracking-tight">TallyBoard</span>
+          </a>
 
-        {/* Links */}
-        <nav className="flex items-center gap-6 flex-wrap justify-center">
-          {[
-            { label: 'Privacy Policy', href: '#' },
-            { label: 'Terms', href: '#' },
-            { label: 'Twitter / X', href: '#' },
-            { label: 'hello@tallyboard.io', href: 'mailto:hello@tallyboard.io' },
-          ].map((link) => (
+          {/* Links */}
+          <nav className="flex items-center gap-6 flex-wrap">
             <a
-              key={link.label}
-              href={link.href}
+              href="https://twitter.com/tallyboard"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[rgba(255,255,255,0.35)] text-sm hover:text-[rgba(255,255,255,0.7)] transition-colors duration-150"
             >
-              {link.label}
+              Twitter / X
             </a>
-          ))}
-        </nav>
+            <a
+              href="mailto:hello@tallyboard.io"
+              className="text-[rgba(255,255,255,0.35)] text-sm hover:text-[rgba(255,255,255,0.7)] transition-colors duration-150"
+            >
+              hello@tallyboard.io
+            </a>
+            <a
+              href="/privacy"
+              className="text-[rgba(255,255,255,0.35)] text-sm hover:text-[rgba(255,255,255,0.7)] transition-colors duration-150"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="/terms"
+              className="text-[rgba(255,255,255,0.35)] text-sm hover:text-[rgba(255,255,255,0.7)] transition-colors duration-150"
+            >
+              Terms of Service
+            </a>
+          </nav>
+        </div>
 
-        {/* Copyright */}
-        <p className="text-[rgba(255,255,255,0.2)] text-xs">
-          © {new Date().getFullYear()} TallyBoard
-        </p>
+        <div className="mt-8 pt-6 border-t border-[rgba(255,255,255,0.05)] flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-[rgba(255,255,255,0.2)] text-xs">
+            © {new Date().getFullYear()} TallyBoard. All rights reserved.
+          </p>
+          <p className="text-[rgba(255,255,255,0.2)] text-xs">
+            Built by Twin
+          </p>
+        </div>
       </div>
     </footer>
   );
@@ -601,21 +803,29 @@ function Footer() {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function Home() {
+export default async function Home() {
+  const waitlistCount = await getWaitlistCount();
+  const spotsCount = Math.min(waitlistCount, 500);
+  const allClaimed = waitlistCount >= 500;
+
   return (
     <main className="min-h-screen bg-[#0A0A0A]">
       <Nav />
-      <Hero />
+      <Hero waitlistCount={waitlistCount} spotsCount={spotsCount} allClaimed={allClaimed} />
       <div className="divider mx-6 md:mx-10" />
       <PainSection />
       <div className="divider mx-6 md:mx-10" />
-      <FeaturesSection />
-      <div className="divider mx-6 md:mx-10" />
       <HowItWorks />
+      <div className="divider mx-6 md:mx-10" />
+      <FeaturesSection />
+      <MidPageCTA waitlistCount={waitlistCount} />
+      <div className="divider mx-6 md:mx-10" />
+      <BuiltByCreator />
       <div className="divider mx-6 md:mx-10" />
       <PricingSection />
       <div className="divider mx-6 md:mx-10" />
-      <FinalCTA />
+      <FAQSection />
+      <FinalCTA waitlistCount={waitlistCount} />
       <Footer />
     </main>
   );
