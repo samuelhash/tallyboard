@@ -583,10 +583,13 @@ function BuiltByCreator() {
 
             <div className="pl-6 md:pl-8">
               <p className="text-[rgba(255,255,255,0.65)] text-base md:text-lg leading-relaxed mb-4">
-                I&apos;ve been creating content for years and every tax season felt like a second job — downloading CSVs from eight platforms, reconciling spreadsheets, and still not knowing which platform actually paid the most.
+                I&apos;ve been creating content for years and every tax season felt like a second job. Downloading CSVs from eight platforms, reconciling spreadsheets, and still not knowing which platform actually paid the most.
               </p>
               <p className="text-[rgba(255,255,255,0.65)] text-base md:text-lg leading-relaxed mb-4">
-                I looked for a tool that understood the creator income stack and couldn&apos;t find one, so I built TallyBoard. No accounting background required, no chart of accounts, no jargon — just a clean view of your money across every platform you work with.
+                I looked for a tool that understood the creator income stack. Nothing existed. So I built TallyBoard.
+              </p>
+              <p className="text-[rgba(255,255,255,0.65)] text-base md:text-lg leading-relaxed mb-4">
+                No accounting background required. No chart of accounts. No jargon. Just a clean view of your money across every platform you work with.
               </p>
               <p className="text-[rgba(255,255,255,0.65)] text-base md:text-lg leading-relaxed mb-8">
                 This is the tool I wish existed when I started.
@@ -600,10 +603,10 @@ function BuiltByCreator() {
                     border: '1px solid rgba(52,211,153,0.25)',
                   }}
                 >
-                  <span className="text-[#34D399] text-xs font-bold">T</span>
+                  <span className="text-[#34D399] text-xs font-bold">J</span>
                 </div>
                 <p className="text-[rgba(255,255,255,0.5)] text-sm font-medium">
-                  — Twin, Founder of TallyBoard
+                  Jack Perice, Founder, TallyBoard
                 </p>
               </div>
             </div>
