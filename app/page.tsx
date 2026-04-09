@@ -12,15 +12,13 @@ export const dynamic = 'force-dynamic';
 // ─── Waitlist count (server-side) ─────────────────────────────────────────────
 
 async function getWaitlistCount(): Promise<number> {
-  try {
-    const client = createServerSupabase();
-    const { count } = await client
-      .from('waitlist')
-      .select('*', { count: 'exact', head: true });
-    return count ?? 0;
-  } catch {
-    return 0;
-  }
+  const client = createServerSupabase();
+  const { count, error } = await client
+    .from('waitlist')
+    .select('*', { count: 'exact', head: true });
+  console.log('[waitlist] count:', count, '| error:', error);
+  if (error) return 0;
+  return count ?? 0;
 }
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
