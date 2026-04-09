@@ -261,44 +261,43 @@ const tiers = [
     popular: false,
     cta: 'Get Started',
     features: [
-      'Up to 3 platforms',
-      '30-day revenue history',
-      'Manual income entry',
-      'Basic CSV export',
-      'Basic dashboard view',
-      'Community support',
+      'Up to 2 platforms',
+      '60-day history',
+      'Basic CSV import',
+      '5 expense entries per month',
     ],
   },
   {
     name: 'Pro',
-    price: '$9.99',
-    period: 'per month',
-    desc: 'For serious creators who know their numbers.',
+    price: '$14.99',
+    period: '/mo',
+    desc: 'or $149/year · save ~$30',
     popular: true,
     cta: 'Claim your lifetime spot',
     features: [
       'Unlimited platforms',
-      'Full revenue history',
-      'CSV import from any platform',
-      'Expense tracking by category',
+      'Full history',
+      'Tax-ready PDF reports',
       'Invoice tracker',
-      'Tax-ready PDF reports (coming soon)',
+      'Expense tracking with categories',
+      'Email support',
     ],
   },
   {
     name: 'Business',
-    price: '$19.99',
-    period: 'per month',
-    desc: 'For creators running a real business.',
+    price: '$39',
+    period: '/mo',
+    desc: 'or $390/year',
     popular: false,
     cta: 'Claim your lifetime spot',
     features: [
       'Everything in Pro',
-      'Team access (3 seats)',
-      'Custom expense categories',
+      '3 team seats',
       'API access',
-      'Dedicated onboarding',
+      'Custom categories',
       'White-label reports',
+      'Priority support',
+      'Quarterly tax estimates',
     ],
   },
 ];
@@ -643,7 +642,7 @@ function PricingSection() {
               <span className="w-1.5 h-1.5 rounded-full bg-[#34D399] animate-pulse flex-shrink-0" />
               <p className="text-[#34D399] text-sm font-semibold">
                 Waitlist members lock in Pro at{' '}
-                <span className="text-white">$4.99/mo forever.</span>
+                <span className="text-white">$14.99/mo forever.</span>
               </p>
             </div>
           </div>
@@ -723,7 +722,7 @@ function FinalCTA({ waitlistCount }: { waitlistCount: number }) {
               </h2>
               <p className="text-[rgba(255,255,255,0.5)] text-lg mb-10 max-w-lg mx-auto leading-relaxed">
                 Join the waitlist and be first to know when TallyBoard launches.
-                Waitlist members lock in Pro at $4.99/mo forever.
+                Waitlist members lock in Pro at $14.99/mo forever.
               </p>
 
               <div className="flex justify-center">
@@ -761,7 +760,7 @@ function Footer() {
           {/* Links */}
           <nav className="flex items-center gap-6 flex-wrap">
             <a
-              href="https://twitter.com/tallyboard"
+              href="https://x.com/TallyBoardhq"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[rgba(255,255,255,0.35)] text-sm hover:text-[rgba(255,255,255,0.7)] transition-colors duration-150"
@@ -794,7 +793,7 @@ function Footer() {
             © {new Date().getFullYear()} TallyBoard. All rights reserved.
           </p>
           <p className="text-[rgba(255,255,255,0.2)] text-xs">
-            Built by Twin
+            Built by <code>Jack Perice.</code>
           </p>
         </div>
       </div>

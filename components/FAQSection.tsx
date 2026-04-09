@@ -25,7 +25,7 @@ const FAQS = [
   },
   {
     q: "What if I'm just starting out?",
-    a: 'The Free tier is forever free. Track up to 3 platforms and get a basic dashboard at no cost.',
+    a: 'The Free tier is forever free. Track up to 2 platforms and get a basic dashboard at no cost.',
   },
   {
     q: 'Can I cancel anytime?',
