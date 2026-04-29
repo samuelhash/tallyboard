@@ -84,7 +84,7 @@ const PLATFORMS = [
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export default function DashboardMockup() {
+export default function DashboardMockup({ flat = false }: { flat?: boolean }) {
   return (
     <div
       aria-hidden="true"
@@ -108,18 +108,20 @@ export default function DashboardMockup() {
           background: 'linear-gradient(160deg, #15151c 0%, #0f0f14 100%)',
           border: '1px solid rgba(255,255,255,0.09)',
           // Top-edge inset highlight simulates the lit surface of a tilted panel
-          boxShadow: [
-            '0 1px 0 rgba(255,255,255,0.08) inset',
-            '0 -1px 0 rgba(0,0,0,0.4) inset',
-            '22px 32px 70px rgba(0,0,0,0.65)',
-            '6px 10px 24px rgba(0,0,0,0.45)',
-            '0 0 0 0.5px rgba(255,255,255,0.04)',
-          ].join(', '),
-          // Perspective tilt — card leans back-top and turns left to face center
-          transform:
-            'perspective(1000px) rotateX(7deg) rotateY(-14deg) rotateZ(2deg)',
-          transformOrigin: '55% 48%',
-          willChange: 'transform',
+          boxShadow: flat
+            ? '0 1px 0 rgba(255,255,255,0.08) inset, 0 4px 32px rgba(0,0,0,0.4)'
+            : [
+                '0 1px 0 rgba(255,255,255,0.08) inset',
+                '0 -1px 0 rgba(0,0,0,0.4) inset',
+                '22px 32px 70px rgba(0,0,0,0.65)',
+                '6px 10px 24px rgba(0,0,0,0.45)',
+                '0 0 0 0.5px rgba(255,255,255,0.04)',
+              ].join(', '),
+          transform: flat
+            ? 'none'
+            : 'perspective(1000px) rotateX(7deg) rotateY(-14deg) rotateZ(2deg)',
+          transformOrigin: flat ? undefined : '55% 48%',
+          willChange: flat ? undefined : 'transform',
         }}
       >
         {/* Top-edge specular highlight */}
@@ -156,7 +158,7 @@ export default function DashboardMockup() {
               />
             </div>
             <span className="text-white/30 text-[11px] font-medium tracking-tight">
-              TallyBoard &mdash; Overview
+              TallyBoard / Overview
             </span>
           </div>
 

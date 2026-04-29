@@ -4,6 +4,7 @@ import AnimateIn from '@/components/AnimateIn';
 import PricingCTA from '@/components/PricingCTA';
 import TrackScrollDepth from '@/components/TrackScrollDepth';
 import FAQSection from '@/components/FAQSection';
+import BenefitsSection from '@/components/BenefitsSection';
 import { createServerSupabase } from '@/lib/supabase-server';
 
 export const revalidate = 0;
@@ -22,131 +23,6 @@ async function getWaitlistCount(): Promise<number> {
 }
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
-
-function IconScatter() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/>
-      <circle cx="12" cy="18" r="2"/><circle cx="5" cy="18" r="2"/>
-      <circle cx="19" cy="18" r="2"/><circle cx="12" cy="6" r="2"/>
-      <line x1="7" y1="6" x2="10" y2="6"/><line x1="14" y1="6" x2="17" y2="6"/>
-      <line x1="5" y1="8" x2="5" y2="16"/><line x1="19" y1="8" x2="19" y2="16"/>
-      <line x1="7" y1="18" x2="10" y2="18"/>
-    </svg>
-  );
-}
-
-function IconTax() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="4" y="2" width="16" height="20" rx="2"/>
-      <line x1="8" y1="7" x2="16" y2="7"/>
-      <line x1="8" y1="11" x2="16" y2="11"/>
-      <line x1="8" y1="15" x2="12" y2="15"/>
-      <path d="M14 16l1.5 1.5L18 14"/>
-    </svg>
-  );
-}
-
-function IconBarChart() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="18" y1="20" x2="18" y2="10"/>
-      <line x1="12" y1="20" x2="12" y2="4"/>
-      <line x1="6" y1="20" x2="6" y2="14"/>
-      <line x1="2" y1="20" x2="22" y2="20"/>
-    </svg>
-  );
-}
-
-function IconMail() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-      <polyline points="22,6 12,13 2,6"/>
-    </svg>
-  );
-}
-
-function IconDashboard() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="2" width="9" height="9" rx="1.5"/>
-      <rect x="13" y="2" width="9" height="9" rx="1.5"/>
-      <rect x="2" y="13" width="9" height="9" rx="1.5"/>
-      <rect x="13" y="13" width="9" height="9" rx="1.5"/>
-    </svg>
-  );
-}
-
-function IconUpload() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-      <polyline points="17 8 12 3 7 8"/>
-      <line x1="12" y1="3" x2="12" y2="15"/>
-    </svg>
-  );
-}
-
-function IconReport() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-      <polyline points="14 2 14 8 20 8"/>
-      <line x1="8" y1="13" x2="16" y2="13"/>
-      <line x1="8" y1="17" x2="13" y2="17"/>
-      <polyline points="10 9 9 9 8 9"/>
-    </svg>
-  );
-}
-
-function IconInvoice() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
-      <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-      <line x1="12" y1="22.08" x2="12" y2="12"/>
-    </svg>
-  );
-}
-
-function IconExpense() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="12" y1="1" x2="12" y2="23"/>
-      <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-    </svg>
-  );
-}
-
-function IconConnect() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
-      <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
-    </svg>
-  );
-}
-
-function IconEye() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-      <circle cx="12" cy="12" r="3"/>
-    </svg>
-  );
-}
-
-function IconExport() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-      <polyline points="7 10 12 15 17 10"/>
-      <line x1="12" y1="15" x2="12" y2="3"/>
-    </svg>
-  );
-}
 
 function IconCheck() {
   return (
@@ -169,115 +45,32 @@ function LogoMark() {
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const painCards = [
-  {
-    icon: <IconScatter />,
-    title: 'Your income lives on 8 different dashboards',
-    desc: "You're context-switching between platforms just to answer the most basic question: how much did I make this month?",
-  },
-  {
-    icon: <IconTax />,
-    title: 'Tax season means 6 hours of CSV downloads',
-    desc: 'Chasing down income numbers from eight platforms while your accountant waits is a special kind of chaos.',
-  },
-  {
-    icon: <IconBarChart />,
-    title: 'You have no idea which platform actually pays',
-    desc: "Views and likes are vanity metrics. Without consolidated revenue data, you can't make smart decisions about what to create.",
-  },
-  {
-    icon: <IconMail />,
-    title: 'Sponsorship invoices? Lost in your inbox.',
-    desc: "Deals get missed, payments get delayed, and you have no single source of truth for what you're owed.",
-  },
-];
-
-const features = [
-  {
-    icon: <IconDashboard />,
-    title: 'Unified Dashboard',
-    desc: 'All revenue streams in one clean view.',
-    comingSoon: false,
-  },
-  {
-    icon: <IconUpload />,
-    title: 'CSV Import',
-    desc: 'Drop in exports from YouTube, PayPal, Stripe.',
-    comingSoon: false,
-  },
-  {
-    icon: <IconExpense />,
-    title: 'Expense Tracking',
-    desc: 'Log equipment, software, travel by category.',
-    comingSoon: false,
-  },
-  {
-    icon: <IconInvoice />,
-    title: 'Invoice Tracker',
-    desc: 'Never lose a sponsorship payment again.',
-    comingSoon: false,
-  },
-  {
-    icon: <IconReport />,
-    title: 'Tax-Ready Reports',
-    desc: 'Clean summaries your accountant will love.',
-    comingSoon: true,
-  },
-  {
-    icon: <IconBarChart />,
-    title: 'Platform Breakdown',
-    desc: 'See exactly which platforms pay the most.',
-    comingSoon: false,
-  },
-];
-
-const steps = [
-  {
-    icon: <IconConnect />,
-    number: '01',
-    title: 'Connect your platforms',
-    desc: 'Link YouTube, TikTok, Twitch, Patreon, and more — or upload a CSV to get started instantly.',
-  },
-  {
-    icon: <IconEye />,
-    number: '02',
-    title: 'See everything in one place',
-    desc: 'All your revenue, platform breakdown, and income trends on a single dashboard.',
-  },
-  {
-    icon: <IconExport />,
-    number: '03',
-    title: 'Export tax-ready reports',
-    desc: 'Generate a clean, categorized income report in seconds and hand it to your accountant.',
-  },
-];
-
 const tiers = [
   {
     name: 'Free',
     price: '$0',
     period: 'forever',
-    desc: 'For creators just getting started.',
+    desc: 'For creators getting started.',
     popular: false,
-    cta: 'Get Started',
+    cta: 'Join the waitlist',
     features: [
-      'Up to 2 platforms',
+      'Up to 3 platforms',
       '60-day history',
-      'Basic CSV import',
-      '5 expense entries per month',
+      'CSV import',
+      'Basic dashboard',
     ],
   },
   {
     name: 'Pro',
-    price: '$14.99',
+    price: '$9.99',
     period: '/mo',
-    desc: 'or $149/year · save ~$30',
+    desc: 'Launch offer: $4.99/mo forever for the first 500.',
     popular: true,
-    cta: 'Claim your lifetime spot',
+    cta: 'Claim my lifetime spot',
     features: [
       'Unlimited platforms',
       'Full history',
-      'Tax-ready PDF reports',
+      'Tax-ready reports',
       'Invoice tracker',
       'Expense tracking with categories',
       'Email support',
@@ -285,11 +78,11 @@ const tiers = [
   },
   {
     name: 'Business',
-    price: '$39',
+    price: '$19.99',
     period: '/mo',
-    desc: 'or $390/year',
+    desc: 'For full-time creator businesses.',
     popular: false,
-    cta: 'Claim your lifetime spot',
+    cta: 'Claim my lifetime spot',
     features: [
       'Everything in Pro',
       '3 team seats',
@@ -297,8 +90,34 @@ const tiers = [
       'Custom categories',
       'White-label reports',
       'Priority support',
-      'Quarterly tax estimates',
     ],
+  },
+];
+
+const ANNOTATIONS = [
+  {
+    color: '#FFFFFF',
+    glow: 'rgba(255,255,255,0.4)',
+    label: 'Total Revenue',
+    desc: 'Every platform combined into one number at the top. No tab-switching required.',
+  },
+  {
+    color: '#34D399',
+    glow: 'rgba(52,211,153,0.6)',
+    label: '6-Month Trend',
+    desc: 'See your income trajectory at a glance. Know instantly whether you are growing.',
+  },
+  {
+    color: '#FF5252',
+    glow: 'rgba(255,82,82,0.6)',
+    label: 'Platform Breakdown',
+    desc: 'YouTube, Twitch, Patreon, sponsors, and merch, each with exact dollar amounts.',
+  },
+  {
+    color: '#F87171',
+    glow: 'rgba(248,113,113,0.6)',
+    label: 'Expenses and Net Profit',
+    desc: 'See what you spend and what you actually keep, updated in real time.',
   },
 ];
 
@@ -312,7 +131,7 @@ function Nav() {
         <span className="text-white font-semibold text-base tracking-tight">TallyBoard</span>
       </a>
       <a href="#waitlist" className="btn-accent px-4 py-2 text-sm rounded-lg">
-        Join Waitlist
+        Lock in $4.99 forever
       </a>
     </header>
   );
@@ -336,11 +155,12 @@ function Hero({ waitlistCount, spotsCount, allClaimed }: HeroProps) {
       <div className="relative max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Left */}
         <div className="flex flex-col gap-7">
-          {/* Badge */}
+
+          {/* Launch offer badge — above headline, impossible to miss */}
           <div className="animate-fade-up" style={{ animationDelay: '0ms' }}>
             <span className="inline-flex items-center gap-2 text-xs font-semibold text-[#34D399] bg-[rgba(52,211,153,0.1)] border border-[rgba(52,211,153,0.2)] px-3.5 py-1.5 rounded-full">
               <span className="w-1.5 h-1.5 rounded-full bg-[#34D399] animate-pulse" />
-              Now accepting waitlist
+              First 500 signups: lifetime Pro at $4.99/mo forever
             </span>
           </div>
 
@@ -355,7 +175,7 @@ function Hero({ waitlistCount, spotsCount, allClaimed }: HeroProps) {
           {/* Subline */}
           <div className="animate-fade-up" style={{ animationDelay: '160ms' }}>
             <p className="text-[rgba(255,255,255,0.55)] text-lg md:text-xl leading-relaxed max-w-xl">
-              Stop downloading CSVs from 8 platforms at tax time.
+              YouTube, Twitch, Patreon, sponsors, and merch. One unified view, tax-ready when you are.
             </p>
           </div>
 
@@ -383,11 +203,7 @@ function Hero({ waitlistCount, spotsCount, allClaimed }: HeroProps) {
           <div id="waitlist" className="animate-fade-up" style={{ animationDelay: '240ms' }}>
             <WaitlistForm size="large" placeholder="your@email.com" />
             <p className="text-[rgba(255,255,255,0.35)] text-xs mt-3">
-              Join{' '}
-              <span className="text-[rgba(255,255,255,0.7)] font-semibold font-num">
-                {waitlistCount > 0 ? waitlistCount.toLocaleString() : 'hundreds of'}
-              </span>{' '}
-              creators on the waitlist
+              First 500 signups get lifetime Pro at $4.99/month. After that, standard pricing applies.
             </p>
           </div>
         </div>
@@ -409,147 +225,69 @@ function Hero({ waitlistCount, spotsCount, allClaimed }: HeroProps) {
 function PainSection() {
   return (
     <section className="py-24 md:py-32 px-6 md:px-10">
-      <div className="max-w-6xl mx-auto">
-        <AnimateIn className="text-center mb-14">
-          <p className="text-[rgba(255,255,255,0.3)] text-sm uppercase tracking-widest font-semibold mb-3">
+      <div className="max-w-3xl mx-auto">
+        <AnimateIn className="text-center">
+          <p className="text-[rgba(255,255,255,0.3)] text-sm uppercase tracking-widest font-semibold mb-5">
             Sound familiar?
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight gradient-text">
-            The content creator money problem.
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8 gradient-text">
+            Tax season shouldn&apos;t be a nightmare.
           </h2>
-        </AnimateIn>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
-          {painCards.map((card, i) => (
-            <AnimateIn key={card.title} delay={i * 80}>
-              <div className="glass-card rounded-2xl p-7 h-full flex flex-col gap-5 cursor-default group">
-                <div className="w-11 h-11 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.08)] flex items-center justify-center text-[rgba(255,255,255,0.5)] group-hover:text-[#34D399] group-hover:border-[rgba(52,211,153,0.3)] group-hover:bg-[rgba(52,211,153,0.08)] transition-all duration-200">
-                  {card.icon}
-                </div>
-                <div>
-                  <h3 className="text-white font-semibold text-base mb-2 leading-snug">
-                    {card.title}
-                  </h3>
-                  <p className="text-[rgba(255,255,255,0.45)] text-sm leading-relaxed">
-                    {card.desc}
-                  </p>
-                </div>
-              </div>
-            </AnimateIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── How It Works ─────────────────────────────────────────────────────────────
-
-function HowItWorks() {
-  return (
-    <section className="py-24 md:py-32 px-6 md:px-10">
-      <div className="max-w-5xl mx-auto">
-        <AnimateIn className="text-center mb-16">
-          <p className="text-[rgba(255,255,255,0.3)] text-sm uppercase tracking-widest font-semibold mb-3">
-            How it works
+          <p className="text-[rgba(255,255,255,0.6)] text-xl md:text-2xl leading-relaxed">
+            Income from YouTube, Twitch, Patreon, and sponsors lands in five different places.
+            Sponsorship invoices disappear into your inbox.
+            Come April, you&apos;re chasing CSVs for six hours while your accountant waits.
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Up and running in minutes.
-          </h2>
         </AnimateIn>
-
-        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
-          {/* Connecting line (desktop) */}
-          <div className="hidden md:block absolute top-10 left-[calc(16.66%+1.5rem)] right-[calc(16.66%+1.5rem)] h-px bg-gradient-to-r from-[rgba(52,211,153,0.3)] via-[rgba(52,211,153,0.5)] to-[rgba(52,211,153,0.3)]" />
-
-          {steps.map((step, i) => (
-            <AnimateIn key={step.title} delay={i * 120}>
-              <div className="relative flex flex-col items-center text-center gap-5">
-                <div className="relative z-10 w-20 h-20 rounded-2xl bg-[#111] border border-[rgba(52,211,153,0.25)] flex flex-col items-center justify-center gap-1 shadow-lg">
-                  <span className="text-[#34D399] text-xs font-bold font-num tracking-widest opacity-60">
-                    {step.number}
-                  </span>
-                  <span className="text-[#34D399]">{step.icon}</span>
-                </div>
-                <div>
-                  <h3 className="text-white font-semibold text-base mb-2">{step.title}</h3>
-                  <p className="text-[rgba(255,255,255,0.45)] text-sm leading-relaxed">{step.desc}</p>
-                </div>
-              </div>
-            </AnimateIn>
-          ))}
-        </div>
       </div>
     </section>
   );
 }
 
-// ─── Features Section ─────────────────────────────────────────────────────────
+// ─── Product in Action ────────────────────────────────────────────────────────
 
-function FeaturesSection() {
+function ProductInAction() {
   return (
     <section className="py-24 md:py-32 px-6 md:px-10 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[rgba(52,211,153,0.025)] to-transparent pointer-events-none" />
-      <div className="relative max-w-6xl mx-auto">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[rgba(52,211,153,0.02)] to-transparent pointer-events-none" />
+      <div className="relative max-w-5xl mx-auto">
         <AnimateIn className="text-center mb-14">
           <p className="text-[#34D399] text-sm uppercase tracking-widest font-semibold mb-3">
-            Features
+            The dashboard
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Built for the way you work.
+            One view. Everything that matters.
           </h2>
           <p className="text-[rgba(255,255,255,0.45)] text-lg mt-4 max-w-xl mx-auto">
-            Everything you need to understand your income. Nothing you don&apos;t.
+            Here&apos;s what you see the moment you log in.
           </p>
         </AnimateIn>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {features.map((f, i) => (
-            <AnimateIn key={f.title} delay={i * 70}>
-              <div className="glass-card rounded-2xl p-7 flex gap-5 items-start group cursor-default h-full">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-[rgba(52,211,153,0.08)] border border-[rgba(52,211,153,0.15)] flex items-center justify-center text-[#34D399] group-hover:bg-[rgba(52,211,153,0.14)] group-hover:border-[rgba(52,211,153,0.25)] transition-all duration-200">
-                  {f.icon}
+        {/* Flat dashboard mockup */}
+        <AnimateIn delay={80}>
+          <div className="max-w-xl mx-auto mb-12">
+            <DashboardMockup flat />
+          </div>
+        </AnimateIn>
+
+        {/* Annotation callouts */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+          {ANNOTATIONS.map((item, i) => (
+            <AnimateIn key={item.label} delay={i * 70}>
+              <div className="glass-card rounded-2xl p-6 flex flex-col gap-3">
+                <div className="flex items-center gap-2.5">
+                  <div
+                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                    style={{ background: item.color, boxShadow: `0 0 8px ${item.glow}` }}
+                  />
+                  <span className="text-white font-semibold text-sm">{item.label}</span>
                 </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                    <h3 className="text-white font-semibold text-base">{f.title}</h3>
-                    {f.comingSoon && (
-                      <span className="text-[10px] font-semibold text-[#34D399] bg-[rgba(52,211,153,0.1)] border border-[rgba(52,211,153,0.2)] px-2 py-0.5 rounded-full whitespace-nowrap">
-                        Coming soon
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-[rgba(255,255,255,0.45)] text-sm leading-relaxed">{f.desc}</p>
-                </div>
+                <p className="text-[rgba(255,255,255,0.45)] text-sm leading-relaxed">{item.desc}</p>
               </div>
             </AnimateIn>
           ))}
         </div>
       </div>
-    </section>
-  );
-}
-
-// ─── Mid-page CTA ─────────────────────────────────────────────────────────────
-
-function MidPageCTA({ waitlistCount }: { waitlistCount: number }) {
-  return (
-    <section className="py-16 px-6 md:px-10">
-      <TrackScrollDepth section="mid_cta" />
-      <AnimateIn>
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-[rgba(255,255,255,0.4)] text-sm mb-6">
-            Join{' '}
-            <span className="text-white font-semibold font-num">
-              {waitlistCount > 0 ? waitlistCount.toLocaleString() : 'hundreds of'}
-            </span>{' '}
-            creators already on the waitlist
-          </p>
-          <div className="flex justify-center">
-            <WaitlistForm size="large" placeholder="your@email.com" />
-          </div>
-        </div>
-      </AnimateIn>
     </section>
   );
 }
@@ -635,14 +373,15 @@ function PricingSection() {
           </p>
         </AnimateIn>
 
-        {/* Waitlist banner */}
+        {/* Launch offer banner */}
         <AnimateIn delay={80}>
           <div className="mb-10 flex justify-center">
             <div className="inline-flex items-center gap-2.5 bg-[rgba(52,211,153,0.08)] border border-[rgba(52,211,153,0.2)] px-5 py-3 rounded-xl">
               <span className="w-1.5 h-1.5 rounded-full bg-[#34D399] animate-pulse flex-shrink-0" />
               <p className="text-[#34D399] text-sm font-semibold">
                 Waitlist members lock in Pro at{' '}
-                <span className="text-white">$14.99/mo forever.</span>
+                <span className="text-white">$4.99/mo forever.</span>
+                {' '}First 500 only.
               </p>
             </div>
           </div>
@@ -721,8 +460,8 @@ function FinalCTA({ waitlistCount }: { waitlistCount: number }) {
                 <span className="accent-gradient-text">Start tallying.</span>
               </h2>
               <p className="text-[rgba(255,255,255,0.5)] text-lg mb-10 max-w-lg mx-auto leading-relaxed">
-                Join the waitlist and be first to know when TallyBoard launches.
-                Waitlist members lock in Pro at $14.99/mo forever.
+                Join the waitlist. First 500 signups lock in lifetime Pro at $4.99/month.
+                After that, standard pricing applies.
               </p>
 
               <div className="flex justify-center">
@@ -815,10 +554,9 @@ export default async function Home() {
       <div className="divider mx-6 md:mx-10" />
       <PainSection />
       <div className="divider mx-6 md:mx-10" />
-      <HowItWorks />
+      <ProductInAction />
       <div className="divider mx-6 md:mx-10" />
-      <FeaturesSection />
-      <MidPageCTA waitlistCount={waitlistCount} />
+      <BenefitsSection />
       <div className="divider mx-6 md:mx-10" />
       <BuiltByCreator />
       <div className="divider mx-6 md:mx-10" />

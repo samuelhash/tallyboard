@@ -2,26 +2,31 @@
 
 import { useState } from 'react';
 
-const FAQS = [
+const BENEFITS = [
   {
-    q: 'Does this do my taxes?',
-    a: 'No. TallyBoard organizes your income and expenses so your CPA can file faster. Tax-ready reports, not tax filing.',
+    headline: 'See every revenue source in one number.',
+    detail:
+      'Import CSVs from YouTube, Patreon, Stripe, and PayPal. TallyBoard auto-detects the format and combines everything into a single total revenue view.',
   },
   {
-    q: 'Does it auto-sync from YouTube, Twitch, or other platforms?',
-    a: 'Auto-sync is on the roadmap. Today, you import via CSV. The importer auto-detects YouTube, PayPal, Stripe, and generic formats.',
+    headline: 'Stop hunting for sponsorship invoices in Gmail.',
+    detail:
+      'Log sponsor deals, set expected payment dates, and track status in one place. No more searching your inbox when a brand payment is overdue.',
   },
   {
-    q: 'What happens after the first 500 signups?',
-    a: 'The lifetime $4.99 offer closes. Pricing reverts to standard $9.99/month for new signups.',
+    headline: 'Know which platform actually pays the most.',
+    detail:
+      'Platform breakdown shows exactly how much YouTube, Twitch, Patreon, sponsors, and merch contribute each month. See what to lean into.',
   },
   {
-    q: 'Is my financial data secure?',
-    a: 'Yes. Supabase auth with row-level security policies. No card data stored.',
+    headline: 'Walk into tax season with clean data your CPA can use.',
+    detail:
+      'Export a categorized income and expense summary. Tax-ready, not tax filing. Hand it to your accountant and you\'re done.',
   },
   {
-    q: 'What if I only earn from one platform?',
-    a: 'The Free tier covers up to 3 platforms. You only need Pro if you scale beyond that or want tax-ready reports.',
+    headline: 'Track what you spend without a spreadsheet.',
+    detail:
+      'Log equipment, software, editing tools, and travel by category. See net profit update in real time as you add expenses.',
   },
 ];
 
@@ -48,7 +53,7 @@ function ChevronIcon({ open }: { open: boolean }) {
   );
 }
 
-export default function FAQSection() {
+export default function BenefitsSection() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
@@ -56,36 +61,39 @@ export default function FAQSection() {
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-14">
           <p className="text-[#34D399] text-sm uppercase tracking-widest font-semibold mb-3">
-            FAQ
+            What you get
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Questions? Answered.
+            Built for the way creators earn.
           </h2>
         </div>
 
         <div className="flex flex-col gap-3">
-          {FAQS.map((faq, i) => (
+          {BENEFITS.map((benefit, i) => (
             <div key={i} className="glass-card rounded-2xl overflow-hidden">
               <button
                 onClick={() => setOpen(open === i ? null : i)}
                 className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left cursor-pointer"
                 aria-expanded={open === i}
               >
-                <span className="text-white font-medium text-sm leading-snug">
-                  {faq.q}
+                <span className="text-white font-semibold text-base leading-snug">
+                  {benefit.headline}
                 </span>
                 <span className="text-[rgba(255,255,255,0.4)]">
                   <ChevronIcon open={open === i} />
                 </span>
               </button>
 
-              {open === i && (
+              <div
+                className="overflow-hidden transition-all duration-300 ease-in-out"
+                style={{ maxHeight: open === i ? '160px' : '0px', opacity: open === i ? 1 : 0 }}
+              >
                 <div className="px-6 pb-5">
                   <p className="text-[rgba(255,255,255,0.5)] text-sm leading-relaxed">
-                    {faq.a}
+                    {benefit.detail}
                   </p>
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
